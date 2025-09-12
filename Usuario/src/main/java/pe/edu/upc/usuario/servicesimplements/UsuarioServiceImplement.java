@@ -22,4 +22,24 @@ public class UsuarioServiceImplement implements IUsuarioService {
     public void insert(Usuario u) {
         repository.save(u);
     }
+
+    @Override
+    public Usuario listId(int id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void delete(int id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public void update(Usuario u) {
+        repository.save(u);
+    }
+
+    @Override
+    public List<Usuario> buscarNombre(String nombre) {
+        return repository.buscar(nombre);
+    }
 }
