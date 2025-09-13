@@ -6,11 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+<<<<<<< Updated upstream
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="calmsphere" target="24" />
     </bytecodeTargetLevel>
+=======
+        <module name="calmsphere" />
+      </profile>
+    </annotationProcessing>
+>>>>>>> Stashed changes
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
