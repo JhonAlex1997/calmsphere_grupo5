@@ -3,20 +3,28 @@ package pe.edu.upc.suscripcion.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "suscripcion")
-public class suscripcion {
+@Table(name = "Suscripcion")
+public class Suscripcion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idSuscripcion;
+
+    @Column(name = "nombre", nullable = false,length = 50)
     private String nombre;
+
+    @Column(name = "precio", nullable = false)
     private double precio;
+
+    @Column(name = "duracion", nullable = false)
     private int duracion;
+
+    @Column(name = "descripcion", nullable = false,length = 50)
     private String descripcion;
 
-    public suscripcion() {
+    public Suscripcion() {
     }
 
-    public suscripcion(int idSuscripcion, String nombre, double precio, int duracion, String descripcion) {
+    public Suscripcion(int idSuscripcion, String nombre, double precio, int duracion, String descripcion) {
         this.idSuscripcion = idSuscripcion;
         this.nombre = nombre;
         this.precio = precio;
