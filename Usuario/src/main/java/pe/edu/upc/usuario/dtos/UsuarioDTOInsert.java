@@ -2,7 +2,7 @@ package pe.edu.upc.usuario.dtos;
 
 import java.time.LocalDate;
 
-public class UsuarioDTO {
+public class UsuarioDTOInsert {
     private int idUsuario;
     private String nombre;
     private String apellido;

@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.usuario.dtos.UsuarioDTO;
+import pe.edu.upc.usuario.dtos.UsuarioDTOInsert;
+import pe.edu.upc.usuario.dtos.UsuarioDTOList;
 import pe.edu.upc.usuario.entities.Usuario;
 import pe.edu.upc.usuario.servicesinterfaces.IUsuarioService;
 
@@ -27,16 +28,16 @@ public class UsuarioController {
                     .body("No se encontraron usuarios");
         }
 
-        List<UsuarioDTO> listaDTO = usuarios.stream().map(u->{
+        List<UsuarioDTOList> listaDTO = usuarios.stream().map(u->{
             ModelMapper m = new ModelMapper();
-            return m.map(u,UsuarioDTO.class);
+            return m.map(u, UsuarioDTOList.class);
         }).collect(Collectors.toList());
 
         return ResponseEntity.ok(listaDTO);
     }
 
     @PostMapping
-    public ResponseEntity<String> insertar(@RequestBody UsuarioDTO dto) {
+    public ResponseEntity<String> insertar(@RequestBody UsuarioDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Usuario u = m.map(dto, Usuario.class);
         service.insert(u);
@@ -52,7 +53,7 @@ public class UsuarioController {
                     .body("No existe un usuario con el ID: " + id);
         }
         ModelMapper m = new ModelMapper();
-        UsuarioDTO dto = m.map(u, UsuarioDTO.class);
+        UsuarioDTOList dto = m.map(u, UsuarioDTOList.class);
         return ResponseEntity.ok(dto);
     }
 
@@ -68,7 +69,7 @@ public class UsuarioController {
     }
 
     @PutMapping
-    public ResponseEntity<String> modificar(@RequestBody UsuarioDTO dto) {
+    public ResponseEntity<String> modificar(@RequestBody UsuarioDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Usuario u = m.map(dto, Usuario.class);
 
@@ -93,9 +94,9 @@ public class UsuarioController {
                     .body("No se encontraron Usuarios con el nombre: " + n);
         }
 
-        List<UsuarioDTO> listaDTO = usuarios.stream().map(x -> {
+        List<UsuarioDTOList> listaDTO = usuarios.stream().map(x -> {
             ModelMapper m = new ModelMapper();
-            return m.map(x, UsuarioDTO.class);
+            return m.map(x, UsuarioDTOList.class);
         }).collect(Collectors.toList());
 
         return ResponseEntity.ok(listaDTO);
