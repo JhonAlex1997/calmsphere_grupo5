@@ -16,4 +16,26 @@ public class suscripcionesservicesimplements implements Isuscripcionesservices {
     public List<suscripciones> list() {
         return sR.findAll();
     }
+
+    @Override
+    public void insert(suscripciones s) {
+        sR.save(s);
+    }
+
+    @Override
+    public void update(suscripciones s) {
+        sR.save(s);
+
+    }
+    @Override
+    public suscripciones listarid(int id) {
+        return sR.findById(id).orElse(new suscripciones());
+    }
+
+    @Override
+    public void delete(int id) {
+        sR.deleteById(id);
+
+    }
+
 }
