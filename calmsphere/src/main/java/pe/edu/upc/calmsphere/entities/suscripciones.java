@@ -1,10 +1,24 @@
 package pe.edu.upc.calmsphere.entities;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "suscripciones")
 public class suscripciones {
+     @Id
+     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int idsuscripcion;
+
+     @Column(name = "nombresuscrpcion", nullable = false, length = 50)
     private String nombresuscripcion;
+
+     @Column(name = "duracionsuscripcion", nullable = false, length = 50)
     private int duracionsuscripcion;
+
+     @Column(name = "preciosuscripcion", nullable = false)
     private double preciosuscripcion;
+
+     @Column(name = "descripcionsuscripcion", nullable = false, length = 80)
     private String descripcionsuscripcion;
 
     public suscripciones() {
