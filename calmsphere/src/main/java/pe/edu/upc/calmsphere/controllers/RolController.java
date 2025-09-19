@@ -77,7 +77,7 @@ public class RolController {
                     .body("No existe un rol con el ID: " + id);
         }
         service.delete(id);
-        return ResponseEntity.ok("El rol con ID " + id + "fue eliminado correctamente.");
+        return ResponseEntity.ok("El rol con ID " + id + " fue eliminado correctamente.");
     }
 
     @PutMapping
@@ -92,7 +92,7 @@ public class RolController {
         }
 
         service.update(r);
-        return ResponseEntity.ok("El rol con ID " + r.getIdRol() + "fue modificado correctamente.");
+        return ResponseEntity.ok("El rol con ID " + r.getIdRol() + " fue modificado correctamente.");
     }
 
     @GetMapping("/busquedas")
