@@ -5,43 +5,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.usuario.dtos.LugarDTO;
+import pe.edu.upc.usuario.dtos.RolDTO;
+import pe.edu.upc.usuario.entities.Rol;
 import pe.edu.upc.usuario.entities.Usuario;
-import pe.edu.upc.usuario.entities.Lugar;
-import pe.edu.upc.usuario.servicesinterfaces.ILugarService;
+import pe.edu.upc.usuario.servicesinterfaces.IRolService;
 import pe.edu.upc.usuario.servicesinterfaces.IUsuarioService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/lugares")
-public class LugarController {
+@RequestMapping("/roles")
+public class RolController {
     @Autowired
-    private ILugarService service;
+    private IRolService service;
 
     @Autowired
     private IUsuarioService uservice;
 
     @GetMapping
     public ResponseEntity<?> listar() {
-        List<Lugar> lugares = service.list();
+        List<Rol> roles = service.list();
 
-        if (lugares.isEmpty()) {
+
+        if (roles.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No se encontraron lugares registrados de los usuarios");
+                    .body("No se encontraron roles registrados.");
         }
 
-        List<LugarDTO> listaDTO = lugares.stream().map(u->{
+        List<RolDTO> listaDTO = roles.stream().map(r->{
             ModelMapper m = new ModelMapper();
-            return m.map(u, LugarDTO.class);
+            return m.map(r, RolDTO.class);
         }).collect(Collectors.toList());
 
         return ResponseEntity.ok(listaDTO);
     }
 
     @PostMapping
-    public ResponseEntity<String> insertar(@RequestBody LugarDTO dto) {
+    public ResponseEntity<String> insertar(@RequestBody RolDTO dto) {
         int id = dto.getIdUsuario().getIdUsuario();
         Usuario us = uservice.listId(id);
         if (us == null) {
@@ -50,64 +51,62 @@ public class LugarController {
                     .body("No existe un usuario con el ID: " + id);
         }
         ModelMapper m = new ModelMapper();
-        Lugar l = m.map(dto, Lugar.class);
-        service.insert(l);
-        return ResponseEntity.ok("El lugar con ID " + l.getIdLugar() + " fue registrado correctamente.");
+        Rol r = m.map(dto, Rol.class);
+        service.insert(r);
+        return ResponseEntity.ok("El rol con ID " + r.getIdRol() + " fue registrado correctamente.");
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> listarId(@PathVariable("id") Integer id) {
-        Lugar l = service.listId(id);
-        if (l == null) {
+    public ResponseEntity<?> listarid(@PathVariable("id") Integer id) {
+        Rol r = service.listId(id);
+        if (r == null) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
-                    .body("No existe un lugar con el ID: " + id);
+                    .body("No existe un rol con el ID: " + id);
         }
         ModelMapper m = new ModelMapper();
-        LugarDTO dto = m.map(l, LugarDTO.class);
+        RolDTO dto = m.map(r, RolDTO.class);
         return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
-        Lugar l = service.listId(id);
-        if (l == null) {
+        Rol r = service.listId(id);
+        if (r == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No existe un lugar con el ID: " + id);
+                    .body("No existe un rol con el ID: " + id);
         }
         service.delete(id);
-        return ResponseEntity.ok("El lugar con ID " + id + " fue eliminado correctamente.");
+        return ResponseEntity.ok("El rol con ID " + id + "fue eliminado correctamente.");
     }
 
     @PutMapping
-    public ResponseEntity<String> modificar(@RequestBody LugarDTO dto) {
+    public ResponseEntity<String> modificar(@RequestBody RolDTO dto) {
         ModelMapper m = new ModelMapper();
-        Lugar l = m.map(dto, Lugar.class);
+        Rol r = m.map(dto, Rol.class);
 
-        // Validación de existencia
-        Lugar existente = service.listId(l.getIdLugar());
+        Rol existente = service.listId(r.getIdRol());
         if (existente == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No se puede modificar. No existe un lugar con el ID: " + l.getIdLugar());
+                    .body("No se puede modificar. No existe un rol con el ID: " + r.getIdRol());
         }
 
-        // Actualización si pasa validaciones
-        service.update(l);
-        return ResponseEntity.ok("El lugar con ID " + l.getIdLugar() + " fue modificado correctamente.");
+        service.update(r);
+        return ResponseEntity.ok("El rol con ID " + r.getIdRol() + "fue modificado correctamente.");
     }
 
     @GetMapping("/busquedas")
     public ResponseEntity<?> buscar(@RequestParam String n) {
-        List<Lugar> lugares = service.buscarNombre(n);
+        List<Rol> roles = service.buscarTipoRol(n);
 
-        if (lugares.isEmpty()) {
+        if (roles.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No se encontraron lugares con el nombre: " + n);
+                    .body("No se encontro el tipo de rol: " + n);
         }
 
-        List<LugarDTO> listaDTO = lugares.stream().map(x -> {
+        List<RolDTO> listaDTO = roles.stream().map(r ->{
             ModelMapper m = new ModelMapper();
-            return m.map(x, LugarDTO.class);
+            return m.map(r, RolDTO.class);
         }).collect(Collectors.toList());
 
         return ResponseEntity.ok(listaDTO);
