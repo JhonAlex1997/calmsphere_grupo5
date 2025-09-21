@@ -1,6 +1,9 @@
 package pe.edu.upc.calmsphere.dtos;
 
+import pe.edu.upc.calmsphere.entities.Rol;
+
 import java.time.LocalDate;
+import java.util.List;
 
 public class UsuarioDTOInsert {
     private int idUsuario;
@@ -10,6 +13,7 @@ public class UsuarioDTOInsert {
     private String contraseña;
     private LocalDate fechaNacimiento;
     private LocalDate fechaRegistro;
+    private List<Rol> roles;
 
     public int getIdUsuario() {
         return idUsuario;
@@ -65,5 +69,13 @@ public class UsuarioDTOInsert {
 
     public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public List<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Rol> roles) {
+        this.roles = roles;
     }
 }
