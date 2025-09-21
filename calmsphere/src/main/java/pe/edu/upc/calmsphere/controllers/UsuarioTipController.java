@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.calmsphere.dtos.UsuarioTipDTO;
 import pe.edu.upc.calmsphere.entities.Tip;
@@ -29,6 +30,7 @@ public class UsuarioTipController {
     private ITipService tservice;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
     public ResponseEntity<?> listar() {
         List<UsuarioTip> tips = service.list();
 
@@ -47,6 +49,7 @@ public class UsuarioTipController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
     public ResponseEntity<String> insertar(@RequestBody UsuarioTipDTO dto) {
         int idUs = dto.getIdUsuario().getIdUsuario();
         Usuario us = uservice.listId(idUs);
