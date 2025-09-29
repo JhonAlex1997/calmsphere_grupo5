@@ -5,6 +5,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/tipo/pom.xml" />
+        <option value="$PROJECT_DIR$/tipo/metodopago/pom.xml" />
       </list>
     </option>
   </component>
