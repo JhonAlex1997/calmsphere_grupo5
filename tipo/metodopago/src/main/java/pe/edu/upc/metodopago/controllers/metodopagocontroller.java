@@ -2,9 +2,10 @@ package pe.edu.upc.metodopago.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pe.edu.upc.metodopago.dtos.metodopagoDTO;
-import pe.edu.upc.metodopago.entities.metodopago;
 import pe.edu.upc.metodopago.servicesinterfaces.Imetodopagoservice;
 
 import java.util.List;
@@ -21,22 +22,5 @@ public class metodopagocontroller {
             ModelMapper m = new ModelMapper();
             return m.map(x, metodopagoDTO.class);
         }).collect(Collectors.toList());
-    }
-
-    @PostMapping
-    public void insertar(@RequestBody metodopagoDTO ins){
-        ModelMapper m = new ModelMapper();
-        metodopago t = m.map(ins, metodopago.class);
-        mS.insert(t);
-    }
-    @DeleteMapping("/{id}")
-    public void eliminar (@PathVariable("id")int id){
-        mS.delete(id);
-    }
-    @PutMapping
-    public void actualizar(@RequestBody metodopagoDTO upd){
-        ModelMapper m = new ModelMapper();
-        metodopago t = m.map(upd, metodopago.class);
-        mS.update(t);
     }
 }
