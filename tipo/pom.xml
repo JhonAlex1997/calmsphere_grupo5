@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>pe.edu.upc</groupId>
-    <artifactId>tipo</artifactId>
+    <artifactId>ejercicio</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>tipo</name>
-    <description>tipo</description>
+    <name>ejercicio</name>
+    <description>ejercicio</description>
     <url/>
     <licenses>
         <license/>
@@ -55,17 +55,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
-            <version>3.2.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.6.0</version>
+            <version>3.2.4</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

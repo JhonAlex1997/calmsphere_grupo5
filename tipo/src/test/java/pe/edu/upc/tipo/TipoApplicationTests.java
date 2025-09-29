@@ -1,10 +1,10 @@
-package pe.edu.upc.tipo;
+package pe.edu.upc.ejercicio;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TipoApplicationTests {
+class EjercicioApplicationTests {
 
     @Test
     void contextLoads() {

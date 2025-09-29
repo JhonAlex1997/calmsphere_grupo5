@@ -6,18 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="metodopago" />
-        <module name="tipo" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="calmsphere" target="24" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="metodopago" options="-parameters" />
-      <module name="tipo" options="-parameters" />
     </option>
   </component>
 </project>
