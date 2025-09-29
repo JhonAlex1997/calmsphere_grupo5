@@ -15,24 +15,4 @@ public class metodopagoserviceimplement implements Imetodopagoservice {
     public List<metodopago> list() {
         return rM.findAll();
     }
-
-    @Override
-    public void insert(metodopago t) {
-
-    }
-
-    @Override
-    public void delete(int id) {
-
-    }
-
-    @Override
-    public void update(metodopago t) {
-
-    }
-
-    @Override
-    public metodopago getById(int id) {
-        return null;
-    }
 }
