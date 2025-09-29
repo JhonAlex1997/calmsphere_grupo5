@@ -16,4 +16,19 @@ public class tiposerviceimplement implements Itiposervice {
     public List<tipo> list() {
         return iR.findAll();
     }
+
+    @Override
+    public void insert(tipo t) {
+
+    }
+
+    @Override
+    public void delete(int id) {
+
+    }
+
+    @Override
+    public void update(tipo t) {
+
+    }
 }
