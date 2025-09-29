@@ -7,7 +7,4 @@ import java.util.List;
 public interface Itiposervice {
 
     public List<tipo> list();
-    public void insert(tipo t);
-    public void delete(int id);
-    public void update(tipo t);
 }
