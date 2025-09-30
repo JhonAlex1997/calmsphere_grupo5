@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class RecordatorioDTO {
     private int idRecordatorio;
-    private Usuario idUsuario;
+    private UsuarioDTOList idUsuario;
     private String descripcion;
     private LocalDate fechaProgramada;
     private String estado;
@@ -19,11 +19,11 @@ public class RecordatorioDTO {
         this.idRecordatorio = idRecordatorio;
     }
 
-    public Usuario getIdUsuario() {
+    public UsuarioDTOList getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
+    public void setIdUsuario(UsuarioDTOList idUsuario) {
         this.idUsuario = idUsuario;
     }
 
