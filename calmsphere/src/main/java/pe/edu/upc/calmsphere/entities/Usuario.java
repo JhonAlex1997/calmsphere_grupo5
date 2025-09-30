@@ -3,6 +3,8 @@ package pe.edu.upc.calmsphere.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Entity
 @Table(name = "Usuario")
 public class Usuario {
@@ -21,10 +23,13 @@ public class Usuario {
     private LocalDate fechaNacimiento;
     @Column(name = "fechaRegistro", nullable = false)
     private LocalDate fechaRegistro;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "idUsuario")
+    private List<Rol> roles;
 
     public Usuario() {}
 
-    public Usuario(int idUsuario, String nombre, String apellido, String email, String contraseña, LocalDate fechaNacimiento, LocalDate fechaRegistro) {
+    public Usuario(int idUsuario, String nombre, String apellido, String email, String contraseña, LocalDate fechaNacimiento, LocalDate fechaRegistro, List<Rol> roles) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -32,6 +37,7 @@ public class Usuario {
         this.contraseña = contraseña;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaRegistro = fechaRegistro;
+        this.roles = roles;
     }
 
     public int getIdUsuario() {
@@ -88,5 +94,13 @@ public class Usuario {
 
     public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public List<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Rol> roles) {
+        this.roles = roles;
     }
 }

@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.calmsphere.dtos.UsuarioDTOInsert;
 import pe.edu.upc.calmsphere.dtos.UsuarioDTOList;
@@ -20,6 +21,7 @@ public class UsuarioController {
     private IUsuarioService service;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
     public ResponseEntity<?> listar() {
         List<Usuario> usuarios = service.list();
 
@@ -37,6 +39,7 @@ public class UsuarioController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
     public ResponseEntity<String> insertar(@RequestBody UsuarioDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Usuario u = m.map(dto, Usuario.class);

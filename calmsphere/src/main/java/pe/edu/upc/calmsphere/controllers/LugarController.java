@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.calmsphere.dtos.LugarDTO;
 import pe.edu.upc.calmsphere.entities.Lugar;
@@ -24,6 +25,7 @@ public class LugarController {
     private IUsuarioService uservice;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
     public ResponseEntity<?> listar() {
         List<Lugar> lugares = service.list();
 
@@ -41,6 +43,7 @@ public class LugarController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
     public ResponseEntity<String> insertar(@RequestBody LugarDTO dto) {
         int id = dto.getIdUsuario().getIdUsuario();
         Usuario us = uservice.listId(id);
