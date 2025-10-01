@@ -25,7 +25,7 @@ public class LugarController {
     private IUsuarioService uservice;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listar() {
         List<Lugar> lugares = service.list();
 
@@ -43,7 +43,7 @@ public class LugarController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody LugarDTO dto) {
         int id = dto.getIdUsuario().getIdUsuario();
         Usuario us = uservice.listId(id);
@@ -59,6 +59,7 @@ public class LugarController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listarId(@PathVariable("id") Integer id) {
         Lugar l = service.listId(id);
         if (l == null) {
@@ -72,6 +73,7 @@ public class LugarController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
         Lugar l = service.listId(id);
         if (l == null) {
@@ -83,6 +85,7 @@ public class LugarController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody LugarDTO dto) {
         ModelMapper m = new ModelMapper();
         Lugar l = m.map(dto, Lugar.class);
@@ -100,6 +103,7 @@ public class LugarController {
     }
 
     @GetMapping("/busquedas")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> buscar(@RequestParam String n) {
         List<Lugar> lugares = service.buscarNombre(n);
 

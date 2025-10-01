@@ -25,7 +25,7 @@ public class RegistroEstadoAnimoController {
     private IUsuarioService uservice;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listar() {
         List<RegistroEstadoAnimo> estados = service.list();
 
@@ -43,7 +43,7 @@ public class RegistroEstadoAnimoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody RegistroEstadoAnimoDTO dto) {
         int id = dto.getIdUsuario().getIdUsuario();
         Usuario us = uservice.listId(id);
@@ -59,6 +59,7 @@ public class RegistroEstadoAnimoController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listarId(@PathVariable("id") Integer id) {
         RegistroEstadoAnimo e = service.listId(id);
         if (e == null) {
@@ -72,6 +73,7 @@ public class RegistroEstadoAnimoController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
         RegistroEstadoAnimo e = service.listId(id);
         if (e == null) {
@@ -83,6 +85,7 @@ public class RegistroEstadoAnimoController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody RegistroEstadoAnimoDTO dto) {
         ModelMapper m = new ModelMapper();
         RegistroEstadoAnimo e = m.map(dto, RegistroEstadoAnimo.class);
