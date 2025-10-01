@@ -1,7 +1,5 @@
 package pe.edu.upc.calmsphere.dtos;
 
-import pe.edu.upc.calmsphere.entities.Usuario;
-
 import java.time.LocalDate;
 
 public class RecordatorioDTO {
