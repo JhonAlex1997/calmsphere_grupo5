@@ -11,7 +11,7 @@ public class Rol {
     @Column(name = "tipoRol", length = 50, nullable = false)
     private String tipoRol;
     @ManyToOne
-    @JoinColumn(name = "idUsuario")
+    @JoinColumn(name = "idUsuario", nullable = false)
     private Usuario idUsuario;
 
     public Rol() {

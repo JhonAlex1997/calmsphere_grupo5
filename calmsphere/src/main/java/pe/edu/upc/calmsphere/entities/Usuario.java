@@ -23,26 +23,13 @@ public class Usuario {
     private LocalDate fechaNacimiento;
     @Column(name = "fechaRegistro", nullable = false)
     private LocalDate fechaRegistro;
-
-    @Column(length = 30, unique = true)
-    private String username;
-    @Column(length = 200)
-    private String password;
-    @Column(name = "enabled", nullable = false)
-    private boolean enabled = true;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "usuario_roles",
-            joinColumns = @JoinColumn(name = "id_usuario"),
-            inverseJoinColumns = @JoinColumn(name = "id_rol")
-    )
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "idUsuario")
     private List<Rol> roles;
-
 
     public Usuario() {}
 
-    public Usuario(int idUsuario, String nombre, String apellido, String email, String contraseña, LocalDate fechaNacimiento, LocalDate fechaRegistro) {
+    public Usuario(int idUsuario, String nombre, String apellido, String email, String contraseña, LocalDate fechaNacimiento, LocalDate fechaRegistro, List<Rol> roles) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -50,6 +37,7 @@ public class Usuario {
         this.contraseña = contraseña;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaRegistro = fechaRegistro;
+        this.roles = roles;
     }
 
     public int getIdUsuario() {
@@ -106,30 +94,6 @@ public class Usuario {
 
     public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     public List<Rol> getRoles() {
