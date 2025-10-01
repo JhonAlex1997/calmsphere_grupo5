@@ -21,7 +21,7 @@ public class UsuarioController {
     private IUsuarioService service;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listar() {
         List<Usuario> usuarios = service.list();
 
@@ -39,7 +39,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody UsuarioDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Usuario u = m.map(dto, Usuario.class);
@@ -48,6 +48,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listarId(@PathVariable("id") Integer id) {
         Usuario u = service.listId(id);
         if (u == null) {
@@ -61,6 +62,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
         Usuario u = service.listId(id);
         if (u == null) {
@@ -72,6 +74,7 @@ public class UsuarioController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody UsuarioDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Usuario u = m.map(dto, Usuario.class);
@@ -89,6 +92,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/busquedas")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> buscar(@RequestParam String n) {
         List<Usuario> usuarios = service.buscarNombre(n);
 

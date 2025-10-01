@@ -25,7 +25,7 @@ public class ObjetivoBienestarController {
     private IUsuarioService uservice;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listar() {
         List<ObjetivoBienestar> objetivos = service.list();
 
@@ -43,7 +43,7 @@ public class ObjetivoBienestarController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody ObjetivoBienestarDTO dto) {
         int id = dto.getIdUsuario().getIdUsuario();
         Usuario us = uservice.listId(id);
@@ -59,6 +59,7 @@ public class ObjetivoBienestarController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listarId(@PathVariable("id") Integer id) {
         ObjetivoBienestar o = service.listId(id);
         if (o == null) {
@@ -72,6 +73,7 @@ public class ObjetivoBienestarController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
         ObjetivoBienestar o = service.listId(id);
         if (o == null) {
@@ -83,6 +85,7 @@ public class ObjetivoBienestarController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody ObjetivoBienestarDTO dto) {
         ModelMapper m = new ModelMapper();
         ObjetivoBienestar o = m.map(dto, ObjetivoBienestar.class);

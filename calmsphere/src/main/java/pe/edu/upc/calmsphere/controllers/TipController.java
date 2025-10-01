@@ -20,7 +20,7 @@ public class TipController {
     private ITipService service;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listar() {
         List<Tip> tips = service.list();
 
@@ -38,7 +38,7 @@ public class TipController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody TipDTO dto) {
         ModelMapper m = new ModelMapper();
         Tip t = m.map(dto, Tip.class);
@@ -47,6 +47,7 @@ public class TipController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listarId(@PathVariable("id") Integer id) {
         Tip t = service.listId(id);
         if (t == null) {
@@ -60,6 +61,7 @@ public class TipController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
         Tip t = service.listId(id);
         if (t == null) {
@@ -71,6 +73,7 @@ public class TipController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody TipDTO dto) {
         ModelMapper m = new ModelMapper();
         Tip t = m.map(dto, Tip.class);
