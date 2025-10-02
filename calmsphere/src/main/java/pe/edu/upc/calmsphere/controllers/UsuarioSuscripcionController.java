@@ -37,13 +37,10 @@ public class UsuarioSuscripcionController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("No se encontraron tips registrados de los Usuarios.");
         }
-
         List<UsuarioSuscripcionDTO> listDTO = tips.stream().map(u->{
             ModelMapper m = new ModelMapper();
             return m.map(u, UsuarioSuscripcionDTO.class);
         }).collect(Collectors.toList());
-
         return ResponseEntity.ok(listDTO);
     }
-
 }
