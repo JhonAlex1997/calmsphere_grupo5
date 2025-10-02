@@ -1,5 +1,9 @@
 package pe.edu.upc.calmsphere.dtos;
 
+import pe.edu.upc.calmsphere.entities.MetodoPago;
+import pe.edu.upc.calmsphere.entities.ProfesionalServicio;
+import pe.edu.upc.calmsphere.entities.Usuario;
+
 import java.time.LocalDateTime;
 
 public class EventoDTOList {

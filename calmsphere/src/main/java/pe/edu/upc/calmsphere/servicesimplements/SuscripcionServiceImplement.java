@@ -8,7 +8,7 @@ import pe.edu.upc.calmsphere.servicesinterfaces.ISuscripcionService;
 
 import java.util.List;
 @Service
-public class SuscripcionServiceImplement {
+public class SuscripcionServiceImplement implements ISuscripcionService {
     @Autowired
     private ISuscripcionRepository sS;
 

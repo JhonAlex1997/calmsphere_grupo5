@@ -1,4 +1,3 @@
-
 package pe.edu.upc.calmsphere.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +19,15 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/eventos")
 public class EventoController {
-
     @Autowired
     private IEventoService service;
 
     private EventoDTOList toDTO(Evento e){
         EventoDTOList dto = new EventoDTOList();
         dto.setIdEvento(e.getIdEvento());
-        dto.setIdUsuario(e.getUsuario()!=null? e.getUsuario().getIdUsuario():0);
+        dto.setIdUsuario(e.getIdUsuario()!=null? e.getIdUsuario().getIdUsuario():0);
         dto.setIdProfesionalServicio(e.getProfesionalServicio()!=null? e.getProfesionalServicio().getIdProfesionalServicio():0);
-        dto.setIdMetodoPago(e.getMetodoPago()!=null? e.getMetodoPago().getIdMetodoPago():0);
+        dto.setIdMetodoPago(e.getIdMetodoPago()!=null? e.getIdMetodoPago().getIdMetodoPago():0);
         dto.setInicio(e.getInicio());
         dto.setFin(e.getFin());
         dto.setEstado(e.isEstado());
@@ -42,14 +40,14 @@ public class EventoController {
         Evento e = new Evento();
         e.setIdEvento(dto.getIdEvento());
         Usuario u = new Usuario();
-        u.setIdUsuario(dto.getIdUsuario());
+        u.setIdUsuario(dto.getIdUsuario().getIdUsuario());
         ProfesionalServicio ps = new ProfesionalServicio();
-        ps.setIdProfesionalServicio(dto.getIdProfesionalServicio());
+        ps.setIdProfesionalServicio(dto.getIdProfesionalServicio().getIdProfesionalServicio());
         MetodoPago mp = new MetodoPago();
-        mp.setIdMetodoPago(dto.getIdMetodoPago());
-        e.setUsuario(u);
+        mp.setIdMetodoPago(dto.getIdMetodoPago().getIdMetodoPago());
+        e.setIdUsuario(u);
         e.setProfesionalServicio(ps);
-        e.setMetodoPago(mp);
+        e.setIdMetodoPago(mp);
         e.setInicio(dto.getInicio());
         e.setFin(dto.getFin());
         e.setEstado(dto.isEstado());

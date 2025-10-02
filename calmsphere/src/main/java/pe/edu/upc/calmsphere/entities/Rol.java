@@ -46,8 +46,4 @@ public class Rol {
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
-    // Alias requerido por Spring Security
-    public String getRol() {
-        return this.tipoRol;
-    }
 }

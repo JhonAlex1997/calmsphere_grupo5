@@ -1,12 +1,16 @@
 package pe.edu.upc.calmsphere.dtos;
 
+import pe.edu.upc.calmsphere.entities.MetodoPago;
+import pe.edu.upc.calmsphere.entities.ProfesionalServicio;
+import pe.edu.upc.calmsphere.entities.Usuario;
+
 import java.time.LocalDateTime;
 
 public class EventoDTOInsert {
     private int idEvento;
-    private int idUsuario;
-    private int idProfesionalServicio;
-    private int idMetodoPago;
+    private Usuario idUsuario;
+    private ProfesionalServicio idProfesionalServicio;
+    private MetodoPago idMetodoPago;
     private LocalDateTime inicio;
     private LocalDateTime fin;
     private boolean estado;
@@ -21,27 +25,27 @@ public class EventoDTOInsert {
         this.idEvento = idEvento;
     }
 
-    public int getIdUsuario() {
+    public Usuario getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public int getIdProfesionalServicio() {
+    public ProfesionalServicio getIdProfesionalServicio() {
         return idProfesionalServicio;
     }
 
-    public void setIdProfesionalServicio(int idProfesionalServicio) {
+    public void setIdProfesionalServicio(ProfesionalServicio idProfesionalServicio) {
         this.idProfesionalServicio = idProfesionalServicio;
     }
 
-    public int getIdMetodoPago() {
+    public MetodoPago getIdMetodoPago() {
         return idMetodoPago;
     }
 
-    public void setIdMetodoPago(int idMetodoPago) {
+    public void setIdMetodoPago(MetodoPago idMetodoPago) {
         this.idMetodoPago = idMetodoPago;
     }
 
