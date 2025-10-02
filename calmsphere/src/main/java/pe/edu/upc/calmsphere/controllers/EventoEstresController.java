@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/eventos")
+@RequestMapping("/eventosestres")
 public class EventoEstresController {
     @Autowired
     private IEventoEstresService service;
