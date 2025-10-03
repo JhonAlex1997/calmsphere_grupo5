@@ -2,11 +2,16 @@ package pe.edu.upc.calmsphere.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.calmsphere.dtos.MetodoPagoDTO;
 import pe.edu.upc.calmsphere.dtos.SuscripcionDTO;
+import pe.edu.upc.calmsphere.dtos.UsuarioDTOInsert;
 import pe.edu.upc.calmsphere.entities.MetodoPago;
 import pe.edu.upc.calmsphere.entities.Suscripcion;
+import pe.edu.upc.calmsphere.entities.Usuario;
 import pe.edu.upc.calmsphere.servicesinterfaces.ISuscripcionService;
 
 import java.util.List;
@@ -25,26 +30,39 @@ public class SuscripcionController {
         }).collect(Collectors.toList());
     }
     @PostMapping
-    public void insertar (@RequestBody SuscripcionDTO dto){
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<String> insertar(@RequestBody SuscripcionDTO dto) {
         ModelMapper m = new ModelMapper();
-        Suscripcion mP = m.map(dto,Suscripcion.class);
-        ssS.insert(mP);
+        Suscripcion u = m.map(dto, Suscripcion.class);
+        ssS.insert(u);
+        return ResponseEntity.ok("El usurio con ID " + u.getIdSuscripcion() + " fue registrado correctamente");
     }
     @PutMapping
-    public void actualizar (@RequestBody SuscripcionDTO dto){
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<String> modificar(@RequestBody SuscripcionDTO dto) {
         ModelMapper m = new ModelMapper();
-        Suscripcion mP = m.map(dto, Suscripcion.class);
-        ssS.update(mP);
+        Suscripcion u = m.map(dto, Suscripcion.class);
+
+        // Validación de existencia
+        Suscripcion existente = ssS.listId(u.getIdSuscripcion());
+        if (existente == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se puede modificar. No existe un usuario con el ID: " + u.getIdSuscripcion());
+        }
+
+        // Actualización si pasa validaciones
+        ssS.update(u);
+        return ResponseEntity.ok("El usuario con ID " + u.getIdSuscripcion() + " fue modificado correctamente.");
     }
     @DeleteMapping("/{id}")
-    public void eliminar ( @PathVariable ("id")int id){
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
+        Suscripcion u = ssS.listId(id);
+        if (u == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No existe un usuario con el ID: " + id);
+        }
         ssS.delete(id);
-    }
-
-    @GetMapping("/{id}")
-    public SuscripcionDTO listId(@PathVariable("id") int id){
-        ModelMapper m = new ModelMapper();
-        SuscripcionDTO dto = m.map(ssS.listId(id), SuscripcionDTO.class);
-        return dto;
+        return ResponseEntity.ok("El usuario con ID " + id + " fue eliminado correctamente.");
     }
 }

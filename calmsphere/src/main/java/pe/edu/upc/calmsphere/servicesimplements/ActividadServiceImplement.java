@@ -15,4 +15,24 @@ public class ActividadServiceImplement implements IActividadService {
     public List<Actividad> list() {
         return iAR.findAll();
     }
+
+    @Override
+    public void insert(Actividad a) {
+        iAR.save(a);
+    }
+
+    @Override
+    public Actividad listId(int id) {
+        return iAR.findById(id).orElse(new Actividad());
+    }
+
+    @Override
+    public void delete(int id) {
+        iAR.deleteById(id);
+    }
+
+    @Override
+    public void update(Actividad a) {
+        iAR.save(a);
+    }
 }
