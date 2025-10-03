@@ -30,7 +30,7 @@ public class UsuarioTipController {
     private ITipService tservice;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listar() {
         List<UsuarioTip> tips = service.list();
 
@@ -49,7 +49,7 @@ public class UsuarioTipController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody UsuarioTipDTO dto) {
         int idUs = dto.getIdUsuario().getIdUsuario();
         Usuario us = uservice.listId(idUs);
@@ -72,6 +72,7 @@ public class UsuarioTipController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listarid(@PathVariable("id") Integer id) {
         UsuarioTip u = service.listId(id);
         if (u == null) {
@@ -85,6 +86,7 @@ public class UsuarioTipController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
         UsuarioTip u = service.listId(id);
         if (u == null) {
@@ -96,6 +98,7 @@ public class UsuarioTipController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody UsuarioTipDTO dto) {
         ModelMapper m = new ModelMapper();
         UsuarioTip u = m.map(dto, UsuarioTip.class);

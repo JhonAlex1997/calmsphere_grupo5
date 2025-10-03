@@ -14,8 +14,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/metodopago")
 public class MetodoPagoController {
-
+    @Autowired
     private IMetodoPagoService cMP;
+
     @GetMapping
     public List<MetodoPagoDTO> listarmetodo(){
         return cMP.list().stream().map(x->{

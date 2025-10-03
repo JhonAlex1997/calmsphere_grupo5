@@ -1,52 +1,43 @@
 package pe.edu.upc.calmsphere.entities;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "evento")
+@Table(name = "Evento")
 public class Evento {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "evento_id")
-    private Integer idEvento;
-
+    private int idEvento;
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
+    @JoinColumn(name = "idUsuario")
+    private Usuario idUsuario;
     @ManyToOne
-    @JoinColumn(name = "profesional_servicio_id", nullable = false)
+    @JoinColumn(name = "profesionalServicio")
     private ProfesionalServicio profesionalServicio;
-
     @ManyToOne
-    @JoinColumn(name = "metodopago_id")
-    private MetodoPago metodoPago;
-
+    @JoinColumn(name = "idMetodoPago")
+    private MetodoPago idMetodoPago;
     @Column(name = "inicio", nullable = false)
     private LocalDateTime inicio;
-
-    @Column(name = "fin")
+    @Column(name = "fin", nullable = false)
     private LocalDateTime fin;
-
     @Column(name = "estado", nullable = false)
     private boolean estado;
-
-    @Column(name = "motivo", length = 200)
+    @Column(name = "motivo", nullable = false)
     private String motivo;
-
-    @Column(name = "monto", precision = 10, scale = 2)
-    private Double monto;
+    @Column(name = "monto", nullable = false)
+    private double monto;
 
     public Evento() {
     }
 
-    public Evento(Integer idEvento, Usuario usuario, ProfesionalServicio profesionalServicio, MetodoPago metodoPago, LocalDateTime inicio, LocalDateTime fin, boolean estado, String motivo, Double monto) {
+    public Evento(int idEvento, Usuario idUsuario, ProfesionalServicio profesionalServicio, MetodoPago idMetodoPago, LocalDateTime inicio, LocalDateTime fin, boolean estado, String motivo, double monto) {
         this.idEvento = idEvento;
-        this.usuario = usuario;
+        this.idUsuario = idUsuario;
         this.profesionalServicio = profesionalServicio;
-        this.metodoPago = metodoPago;
+        this.idMetodoPago = idMetodoPago;
         this.inicio = inicio;
         this.fin = fin;
         this.estado = estado;
@@ -54,20 +45,20 @@ public class Evento {
         this.monto = monto;
     }
 
-    public Integer getIdEvento() {
+    public int getIdEvento() {
         return idEvento;
     }
 
-    public void setIdEvento(Integer idEvento) {
+    public void setIdEvento(int idEvento) {
         this.idEvento = idEvento;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public ProfesionalServicio getProfesionalServicio() {
@@ -78,12 +69,12 @@ public class Evento {
         this.profesionalServicio = profesionalServicio;
     }
 
-    public MetodoPago getMetodoPago() {
-        return metodoPago;
+    public MetodoPago getIdMetodoPago() {
+        return idMetodoPago;
     }
 
-    public void setMetodoPago(MetodoPago metodoPago) {
-        this.metodoPago = metodoPago;
+    public void setIdMetodoPago(MetodoPago idMetodoPago) {
+        this.idMetodoPago = idMetodoPago;
     }
 
     public LocalDateTime getInicio() {
@@ -118,11 +109,11 @@ public class Evento {
         this.motivo = motivo;
     }
 
-    public Double getMonto() {
+    public double getMonto() {
         return monto;
     }
 
-    public void setMonto(Double monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 }

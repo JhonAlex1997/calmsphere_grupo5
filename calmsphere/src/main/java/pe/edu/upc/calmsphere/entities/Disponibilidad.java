@@ -1,10 +1,11 @@
 package pe.edu.upc.calmsphere.entities;
 
 import jakarta.persistence.*;
+
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "disponibilidad")
+@Table(name = "Disponibilidad")
 public class Disponibilidad {
 
     @Id

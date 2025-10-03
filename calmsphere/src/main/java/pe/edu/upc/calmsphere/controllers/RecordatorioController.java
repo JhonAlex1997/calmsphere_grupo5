@@ -24,7 +24,7 @@ public class RecordatorioController {
     private IUsuarioService uservice;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listar() {
         List<Recordatorio> recordatorios = service.list();
 
@@ -42,7 +42,7 @@ public class RecordatorioController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody RecordatorioDTO dto) {
         Usuario existe = uservice.listId(dto.getIdUsuario().getIdUsuario());
         if (existe == null) {
@@ -58,6 +58,7 @@ public class RecordatorioController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listarId(@PathVariable("id") Integer id) {
         Recordatorio r = service.listId(id);
         if (r == null) {
@@ -71,6 +72,7 @@ public class RecordatorioController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
         Recordatorio r = service.listId(id);
         if (r == null) {
@@ -82,6 +84,7 @@ public class RecordatorioController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody Recordatorio dto) {
         ModelMapper m = new ModelMapper();
         Recordatorio r = m.map(dto, Recordatorio.class);

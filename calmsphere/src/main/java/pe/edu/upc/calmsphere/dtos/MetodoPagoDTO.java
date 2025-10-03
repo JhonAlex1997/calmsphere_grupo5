@@ -1,7 +1,5 @@
 package pe.edu.upc.calmsphere.dtos;
 
-import jakarta.persistence.Column;
-
 public class MetodoPagoDTO {
     private int idMetodoPago;
     private String nombre;

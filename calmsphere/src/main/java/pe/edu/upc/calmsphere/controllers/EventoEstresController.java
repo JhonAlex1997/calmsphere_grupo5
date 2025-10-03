@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/eventos")
+@RequestMapping("/eventosestres")
 public class EventoEstresController {
     @Autowired
     private IEventoEstresService service;
@@ -28,7 +28,7 @@ public class EventoEstresController {
     private IUsuarioService uservice;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listar() {
         List<EventoEstres> eventos = service.list();
 
@@ -46,7 +46,7 @@ public class EventoEstresController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('GERENTE')")
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL')")
     public ResponseEntity<String> insertar(@RequestBody EventoEstresDTO dto) {
         int id = dto.getIdUsuario().getIdUsuario();
         Usuario us = uservice.listId(id);
@@ -62,6 +62,7 @@ public class EventoEstresController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL')")
     public ResponseEntity<?> listarId(@PathVariable("id") Integer id) {
         EventoEstres e = service.listId(id);
         if (e == null) {
@@ -75,6 +76,7 @@ public class EventoEstresController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
         EventoEstres e = service.listId(id);
         if (e == null) {
@@ -86,6 +88,7 @@ public class EventoEstresController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody EventoEstresDTO dto) {
         ModelMapper m = new ModelMapper();
         EventoEstres e = m.map(dto, EventoEstres.class);
@@ -101,6 +104,7 @@ public class EventoEstresController {
     }
 
     @GetMapping("/busquedas")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> StatusSoftware() {
         List<String[]> eventos = service.buscarPorFecha();
         List<EventoEstresPorFechaDTO> listaPorFecha = new ArrayList<>();

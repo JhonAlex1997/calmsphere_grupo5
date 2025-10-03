@@ -3,7 +3,7 @@ package pe.edu.upc.calmsphere.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "profesional_servicio")
+@Table(name = "Profesional_servicio")
 public class ProfesionalServicio {
 
     @Id

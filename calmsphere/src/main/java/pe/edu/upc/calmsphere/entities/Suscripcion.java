@@ -3,7 +3,7 @@ package pe.edu.upc.calmsphere.entities;
 import jakarta.persistence.*;
 
 @Entity
-
+@Table(name = "Suscripcion")
 public class Suscripcion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

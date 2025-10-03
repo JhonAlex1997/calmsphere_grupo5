@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/suscripcion")
 public class SuscripcionController {
-
+    @Autowired
     private ISuscripcionService sS;
     @GetMapping
     public List<SuscripcionDTO> listarSuscripcion(){
