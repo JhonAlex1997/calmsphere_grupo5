@@ -6,12 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.calmsphere.dtos.MetodoPagoDTO;
 import pe.edu.upc.calmsphere.dtos.SuscripcionDTO;
-import pe.edu.upc.calmsphere.dtos.UsuarioDTOInsert;
-import pe.edu.upc.calmsphere.entities.MetodoPago;
 import pe.edu.upc.calmsphere.entities.Suscripcion;
-import pe.edu.upc.calmsphere.entities.Usuario;
 import pe.edu.upc.calmsphere.servicesinterfaces.ISuscripcionService;
 
 import java.util.List;

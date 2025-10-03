@@ -1,6 +1,5 @@
 package pe.edu.upc.calmsphere.dtos;
 
-import pe.edu.upc.calmsphere.entities.MetodoPago;
 import pe.edu.upc.calmsphere.entities.Suscripcion;
 import pe.edu.upc.calmsphere.entities.Usuario;
 
@@ -29,7 +28,6 @@ public class UsuarioSuscripcionDTO {
         this.fechaInicio = fechaInicio;
     }
 
-
     public Suscripcion getIdSuscripcion() {
         return idSuscripcion;
     }
@@ -45,5 +43,5 @@ public class UsuarioSuscripcionDTO {
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
-
 }
+
