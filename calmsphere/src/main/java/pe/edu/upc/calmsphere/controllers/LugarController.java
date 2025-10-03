@@ -45,6 +45,10 @@ public class LugarController {
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody LugarDTO dto) {
+        if (dto.getProveedor() == null || dto.getId_externo() == null || dto.getNombre() == null || dto.getDireccion() == null || dto.getDescripcion() == null || dto.getGuardado_en() == null || dto.getIdUsuario() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         int id = dto.getIdUsuario().getIdUsuario();
         Usuario us = uservice.listId(id);
         if (us == null) {
@@ -87,6 +91,10 @@ public class LugarController {
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody LugarDTO dto) {
+        if (dto.getProveedor() == null || dto.getId_externo() == null || dto.getNombre() == null || dto.getDireccion() == null || dto.getDescripcion() == null || dto.getGuardado_en() == null || dto.getIdUsuario() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         ModelMapper m = new ModelMapper();
         Lugar l = m.map(dto, Lugar.class);
 

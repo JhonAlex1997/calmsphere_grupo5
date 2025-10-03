@@ -41,6 +41,10 @@ public class UsuarioController {
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody UsuarioDTOInsert dto) {
+        if (dto.getNombre() == null || dto.getApellido() == null || dto.getEmail() == null || dto.getContraseña() == null || dto.getFechaNacimiento() == null || dto.getFechaRegistro() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         ModelMapper m = new ModelMapper();
         Usuario u = m.map(dto, Usuario.class);
         service.insert(u);
@@ -76,6 +80,10 @@ public class UsuarioController {
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody UsuarioDTOInsert dto) {
+        if (dto.getNombre() == null || dto.getApellido() == null || dto.getEmail() == null || dto.getContraseña() == null || dto.getFechaNacimiento() == null || dto.getFechaRegistro() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         ModelMapper m = new ModelMapper();
         Usuario u = m.map(dto, Usuario.class);
 

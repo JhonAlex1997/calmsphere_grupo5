@@ -12,7 +12,7 @@ public class ObjetivoBienestarDTO {
     private LocalDate fechaFin;
     private double progresoActual;
     private String estado;
-    private Usuario idUsuario;
+    private UsuarioDTOList idUsuario;
 
     public int getIdObjetivo() {
         return idObjetivo;
@@ -78,11 +78,11 @@ public class ObjetivoBienestarDTO {
         this.estado = estado;
     }
 
-    public Usuario getIdUsuario() {
+    public UsuarioDTOList getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
+    public void setIdUsuario(UsuarioDTOList idUsuario) {
         this.idUsuario = idUsuario;
     }
 }

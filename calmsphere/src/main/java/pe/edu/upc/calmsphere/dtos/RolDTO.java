@@ -5,7 +5,7 @@ import pe.edu.upc.calmsphere.entities.Usuario;
 public class RolDTO {
     private int idRol;
     private String tipoRol;
-    private Usuario idUsuario;
+    private UsuarioDTOList idUsuario;
 
     public int getIdRol() {
         return idRol;
@@ -23,11 +23,11 @@ public class RolDTO {
         this.tipoRol = tipoRol;
     }
 
-    public Usuario getIdUsuario() {
+    public UsuarioDTOList getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
+    public void setIdUsuario(UsuarioDTOList idUsuario) {
         this.idUsuario = idUsuario;
     }
 }

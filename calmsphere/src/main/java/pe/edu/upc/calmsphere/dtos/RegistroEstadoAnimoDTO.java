@@ -10,7 +10,7 @@ public class RegistroEstadoAnimoDTO {
     private int puntuacion;
     private String emocion;
     private String descripcion;
-    private Usuario idUsuario;
+    private UsuarioDTOList idUsuario;
 
     public int getIdEstado() {
         return idEstado;
@@ -52,11 +52,11 @@ public class RegistroEstadoAnimoDTO {
         this.descripcion = descripcion;
     }
 
-    public Usuario getIdUsuario() {
+    public UsuarioDTOList getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
+    public void setIdUsuario(UsuarioDTOList idUsuario) {
         this.idUsuario = idUsuario;
     }
 }
