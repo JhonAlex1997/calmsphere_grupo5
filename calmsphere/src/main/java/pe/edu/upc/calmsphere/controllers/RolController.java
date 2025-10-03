@@ -46,6 +46,10 @@ public class RolController {
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody RolDTO dto) {
+        if (dto.getTipoRol() == null || dto.getIdUsuario() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         int id = dto.getIdUsuario().getIdUsuario();
         Usuario us = uservice.listId(id);
         if (us == null) {
@@ -88,6 +92,10 @@ public class RolController {
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody RolDTO dto) {
+        if (dto.getTipoRol() == null || dto.getIdUsuario() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         ModelMapper m = new ModelMapper();
         Rol r = m.map(dto, Rol.class);
 

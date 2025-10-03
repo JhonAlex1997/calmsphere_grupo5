@@ -51,6 +51,10 @@ public class UsuarioTipController {
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody UsuarioTipDTO dto) {
+        if (dto.getFechaEntrega() == null || dto.getCanal() == null || dto.getIdUsuario() == null || dto. getIdTip() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         int idUs = dto.getIdUsuario().getIdUsuario();
         Usuario us = uservice.listId(idUs);
         if (us == null) {
@@ -100,6 +104,10 @@ public class UsuarioTipController {
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody UsuarioTipDTO dto) {
+        if (dto.getFechaEntrega() == null || dto.getCanal() == null || dto.getIdUsuario() == null || dto. getIdTip() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         ModelMapper m = new ModelMapper();
         UsuarioTip u = m.map(dto, UsuarioTip.class);
 

@@ -1,7 +1,5 @@
 package pe.edu.upc.calmsphere.dtos;
 
-import pe.edu.upc.calmsphere.entities.Usuario;
-
 import java.time.LocalDate;
 
 public class LugarDTO {
@@ -11,8 +9,8 @@ public class LugarDTO {
     private String nombre;
     private String direccion;
     private String descripcion;
-    private LocalDate guardaqdo_en;
-    private Usuario idUsuario;
+    private LocalDate guardado_en;
+    private UsuarioDTOList idUsuario;
 
     public int getIdLugar() {
         return idLugar;
@@ -62,19 +60,19 @@ public class LugarDTO {
         this.descripcion = descripcion;
     }
 
-    public LocalDate getGuardaqdo_en() {
-        return guardaqdo_en;
+    public LocalDate getGuardado_en() {
+        return guardado_en;
     }
 
-    public void setGuardaqdo_en(LocalDate guardaqdo_en) {
-        this.guardaqdo_en = guardaqdo_en;
+    public void setGuardado_en(LocalDate guardado_en) {
+        this.guardado_en = guardado_en;
     }
 
-    public Usuario getIdUsuario() {
+    public UsuarioDTOList getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
+    public void setIdUsuario(UsuarioDTOList idUsuario) {
         this.idUsuario = idUsuario;
     }
 }

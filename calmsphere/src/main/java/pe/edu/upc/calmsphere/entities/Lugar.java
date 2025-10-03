@@ -20,8 +20,8 @@ public class Lugar {
     private String direccion;
     @Column(name = "descripcion", length = 200, nullable = false)
     private String descripcion;
-    @Column(name = "guardaqdo_en", nullable = false)
-    private LocalDate guardaqdo_en;
+    @Column(name = "guardado_en", nullable = false)
+    private LocalDate guardado_en;
     @ManyToOne
     @JoinColumn(name = "idUsuario")
     private Usuario idUsuario;
@@ -29,14 +29,14 @@ public class Lugar {
     public Lugar() {
     }
 
-    public Lugar(int idLugar, String proveedor, String id_externo, String nombre, String direccion, String descripcion, LocalDate guardaqdo_en, Usuario idUsuario) {
+    public Lugar(int idLugar, String proveedor, String id_externo, String nombre, String direccion, String descripcion, LocalDate guardado_en, Usuario idUsuario) {
         this.idLugar = idLugar;
         this.proveedor = proveedor;
         this.id_externo = id_externo;
         this.nombre = nombre;
         this.direccion = direccion;
         this.descripcion = descripcion;
-        this.guardaqdo_en = guardaqdo_en;
+        this.guardado_en = guardado_en;
         this.idUsuario = idUsuario;
     }
 
@@ -88,12 +88,12 @@ public class Lugar {
         this.descripcion = descripcion;
     }
 
-    public LocalDate getGuardaqdo_en() {
-        return guardaqdo_en;
+    public LocalDate getGuardado_en() {
+        return guardado_en;
     }
 
-    public void setGuardaqdo_en(LocalDate guardaqdo_en) {
-        this.guardaqdo_en = guardaqdo_en;
+    public void setGuardado_en(LocalDate guardado_en) {
+        this.guardado_en = guardado_en;
     }
 
     public Usuario getIdUsuario() {

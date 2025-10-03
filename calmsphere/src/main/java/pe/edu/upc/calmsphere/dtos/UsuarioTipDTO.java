@@ -1,7 +1,6 @@
 package pe.edu.upc.calmsphere.dtos;
 
 import pe.edu.upc.calmsphere.entities.Tip;
-import pe.edu.upc.calmsphere.entities.Usuario;
 
 import java.time.LocalDate;
 
@@ -11,7 +10,7 @@ public class UsuarioTipDTO {
     private String canal;
     private boolean guardado;
     private boolean util;
-    private Usuario idUsuario;
+    private UsuarioDTOList idUsuario;
     private Tip idTip;
 
     public int getIdUsuarioTip() {
@@ -54,11 +53,11 @@ public class UsuarioTipDTO {
         this.util = util;
     }
 
-    public Usuario getIdUsuario() {
+    public UsuarioDTOList getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
+    public void setIdUsuario(UsuarioDTOList idUsuario) {
         this.idUsuario = idUsuario;
     }
 

@@ -48,6 +48,10 @@ public class EventoEstresController {
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL')")
     public ResponseEntity<String> insertar(@RequestBody EventoEstresDTO dto) {
+        if (dto.getFecha() == null || dto.getDescripcion() == null || dto.getIdUsuario() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         int id = dto.getIdUsuario().getIdUsuario();
         Usuario us = uservice.listId(id);
         if (us == null) {
@@ -90,6 +94,10 @@ public class EventoEstresController {
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody EventoEstresDTO dto) {
+        if (dto.getFecha() == null || dto.getDescripcion() == null || dto.getIdUsuario() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         ModelMapper m = new ModelMapper();
         EventoEstres e = m.map(dto, EventoEstres.class);
 

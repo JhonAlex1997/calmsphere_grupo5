@@ -40,6 +40,10 @@ public class TipController {
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody TipDTO dto) {
+        if (dto.getFuente() == null || dto.getIdExterno() == null || dto.getTitulo() == null || dto.getContenido() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         ModelMapper m = new ModelMapper();
         Tip t = m.map(dto, Tip.class);
         service.insert(t);
@@ -75,6 +79,10 @@ public class TipController {
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody TipDTO dto) {
+        if (dto.getFuente() == null || dto.getIdExterno() == null || dto.getTitulo() == null || dto.getContenido() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         ModelMapper m = new ModelMapper();
         Tip t = m.map(dto, Tip.class);
 

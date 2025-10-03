@@ -45,6 +45,10 @@ public class ObjetivoBienestarController {
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody ObjetivoBienestarDTO dto) {
+        if (dto.getNombreObjetivo() == null || dto.getUnidad() == null || dto.getFechaInicio() == null || dto.getFechaFin() == null || dto.getEstado() == null ){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         int id = dto.getIdUsuario().getIdUsuario();
         Usuario us = uservice.listId(id);
         if (us == null) {
@@ -87,6 +91,10 @@ public class ObjetivoBienestarController {
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody ObjetivoBienestarDTO dto) {
+        if (dto.getNombreObjetivo() == null || dto.getUnidad() == null || dto.getFechaInicio() == null || dto.getFechaFin() == null || dto.getEstado() == null ){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         ModelMapper m = new ModelMapper();
         ObjetivoBienestar o = m.map(dto, ObjetivoBienestar.class);
 

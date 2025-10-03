@@ -1,5 +1,4 @@
 package pe.edu.upc.calmsphere.dtos;
-import pe.edu.upc.calmsphere.entities.Usuario;
 
 import java.time.LocalDate;
 
@@ -8,7 +7,7 @@ public class EventoEstresDTO {
     private LocalDate fecha;
     private int nivelEstres;
     private String descripcion;
-    private Usuario idUsuario;
+    private UsuarioDTOList idUsuario;
 
     public int getIdEventoEstres() {
         return idEventoEstres;
@@ -42,11 +41,11 @@ public class EventoEstresDTO {
         this.descripcion = descripcion;
     }
 
-    public Usuario getIdUsuario() {
+    public UsuarioDTOList getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
+    public void setIdUsuario(UsuarioDTOList idUsuario) {
         this.idUsuario = idUsuario;
     }
 }

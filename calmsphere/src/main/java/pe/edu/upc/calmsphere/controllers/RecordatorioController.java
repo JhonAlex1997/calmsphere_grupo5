@@ -44,6 +44,10 @@ public class RecordatorioController {
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> insertar(@RequestBody RecordatorioDTO dto) {
+        if (dto.getIdUsuario() == null || dto.getDescripcion() == null || dto.getFechaProgramada() == null || dto.getEstado() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         Usuario existe = uservice.listId(dto.getIdUsuario().getIdUsuario());
         if (existe == null) {
             return ResponseEntity
@@ -86,6 +90,10 @@ public class RecordatorioController {
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> modificar(@RequestBody Recordatorio dto) {
+        if (dto.getIdUsuario() == null || dto.getDescripcion() == null || dto.getFechaProgramada() == null || dto.getEstado() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
         ModelMapper m = new ModelMapper();
         Recordatorio r = m.map(dto, Recordatorio.class);
 
