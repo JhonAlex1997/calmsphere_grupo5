@@ -16,4 +16,19 @@ public class UsuarioSuscripcionServiceImplement implements IUsuarioSuscripcionSe
     public List<UsuarioSuscripcion> list() {
         return iUS.findAll();
     }
+
+    @Override
+    public void update(UsuarioSuscripcion u) {
+        iUS.save(u);
+    }
+
+    @Override
+    public void delete(int id) {
+        iUS.deleteById(id);
+    }
+
+    @Override
+    public void insert(UsuarioSuscripcion u) {
+        iUS.save(u);
+    }
 }

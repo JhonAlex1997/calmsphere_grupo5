@@ -7,15 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.calmsphere.dtos.ActividadDTO;
-import pe.edu.upc.calmsphere.dtos.ColeccionDTOInsert;
-import pe.edu.upc.calmsphere.dtos.ColeccionDTOList;
 import pe.edu.upc.calmsphere.entities.Actividad;
-import pe.edu.upc.calmsphere.entities.Coleccion;
 import pe.edu.upc.calmsphere.servicesinterfaces.IActividadService;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 @RestController
 @RequestMapping("/actividad")

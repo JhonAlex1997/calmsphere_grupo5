@@ -10,11 +10,8 @@ public class UsuarioSuscripcionDTO {
 
     private int idUsuarioSuscripcion;
     private LocalDate fechaInicio;
-    private LocalDate fechaFin;
-    private String estado;
     private Suscripcion idSuscripcion;
     private Usuario idUsuario;
-    private MetodoPago idMetodoPago;
 
     public int getIdUsuarioSuscripcion() {
         return idUsuarioSuscripcion;
@@ -32,21 +29,6 @@ public class UsuarioSuscripcionDTO {
         this.fechaInicio = fechaInicio;
     }
 
-    public LocalDate getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(LocalDate fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
 
     public Suscripcion getIdSuscripcion() {
         return idSuscripcion;
@@ -64,11 +46,4 @@ public class UsuarioSuscripcionDTO {
         this.idUsuario = idUsuario;
     }
 
-    public MetodoPago getIdMetodoPago() {
-        return idMetodoPago;
-    }
-
-    public void setIdMetodoPago(MetodoPago idMetodoPago) {
-        this.idMetodoPago = idMetodoPago;
-    }
 }

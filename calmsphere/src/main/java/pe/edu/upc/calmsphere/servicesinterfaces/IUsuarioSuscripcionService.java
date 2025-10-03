@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface IUsuarioSuscripcionService {
     public List<UsuarioSuscripcion> list();
+    public void update(UsuarioSuscripcion u);
+    public void delete(int id);
+    public void insert(UsuarioSuscripcion u);
 }
