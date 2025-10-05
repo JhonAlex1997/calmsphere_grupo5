@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.calmsphere.dtos.EventoDTO;
 import pe.edu.upc.calmsphere.dtos.EventoDTOInsert;
 import pe.edu.upc.calmsphere.dtos.EventoDTOList;
 import pe.edu.upc.calmsphere.entities.Evento;
@@ -36,18 +37,22 @@ public class EventoController {
         return dto;
     }
 
-    private Evento toEntity(EventoDTOInsert dto){
+    private Evento toEntity(EventoDTO dto){
         Evento e = new Evento();
         e.setIdEvento(dto.getIdEvento());
+
         Usuario u = new Usuario();
-        u.setIdUsuario(dto.getIdUsuario().getIdUsuario());
-        ProfesionalServicio ps = new ProfesionalServicio();
-        ps.setIdProfesionalServicio(dto.getIdProfesionalServicio().getIdProfesionalServicio());
-        MetodoPago mp = new MetodoPago();
-        mp.setIdMetodoPago(dto.getIdMetodoPago().getIdMetodoPago());
+        u.setIdUsuario(dto.getIdUsuario());
         e.setIdUsuario(u);
+
+        ProfesionalServicio ps = new ProfesionalServicio();
+        ps.setIdProfesionalServicio(dto.getIdProfesionalServicio());
         e.setProfesionalServicio(ps);
+
+        MetodoPago mp = new MetodoPago();
+        mp.setIdMetodoPago(dto.getIdMetodoPago());
         e.setIdMetodoPago(mp);
+
         e.setInicio(dto.getInicio());
         e.setFin(dto.getFin());
         e.setEstado(dto.isEstado());
@@ -79,7 +84,7 @@ public class EventoController {
 
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
     @PostMapping
-    public ResponseEntity<String> insertar(@RequestBody EventoDTOInsert dto){
+    public ResponseEntity<String> insertar(@RequestBody EventoDTO dto){
         Evento e = toEntity(dto);
         service.insert(e);
         return ResponseEntity.status(HttpStatus.CREATED).body("Evento creado con ID: "+e.getIdEvento());
@@ -87,7 +92,7 @@ public class EventoController {
 
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
     @PutMapping
-    public ResponseEntity<String> actualizar(@RequestBody EventoDTOInsert dto){
+    public ResponseEntity<String> actualizar(@RequestBody EventoDTO dto){
         Evento e = toEntity(dto);
         Evento existente = service.listId(e.getIdEvento());
         if(existente==null){

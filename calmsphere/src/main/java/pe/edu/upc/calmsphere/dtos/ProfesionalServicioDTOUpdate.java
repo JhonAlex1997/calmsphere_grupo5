@@ -1,11 +1,20 @@
 package pe.edu.upc.calmsphere.dtos;
 
-public class ProfesionalServicioDTOInsert {
+public class ProfesionalServicioDTOUpdate {
+    private int idProfesionalServicio;
     private String nombre;
     private int duracionMin;
     private double precioBase;
     private int idDisponibilidad;
     private int idUsuario;
+
+    public int getIdProfesionalServicio() {
+        return idProfesionalServicio;
+    }
+
+    public void setIdProfesionalServicio(int idProfesionalServicio) {
+        this.idProfesionalServicio = idProfesionalServicio;
+    }
 
     public String getNombre() {
         return nombre;

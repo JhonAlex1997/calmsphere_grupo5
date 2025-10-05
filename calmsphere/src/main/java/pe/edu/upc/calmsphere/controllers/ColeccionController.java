@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.calmsphere.dtos.ColeccionDTO;
 import pe.edu.upc.calmsphere.dtos.ColeccionDTOInsert;
 import pe.edu.upc.calmsphere.dtos.ColeccionDTOList;
 import pe.edu.upc.calmsphere.entities.Coleccion;
@@ -57,7 +58,7 @@ public class ColeccionController {
 
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
     @PutMapping
-    public ResponseEntity<String> actualizar(@RequestBody ColeccionDTOInsert dto) {
+    public ResponseEntity<String> actualizar(@RequestBody ColeccionDTO dto) {
         Coleccion c = new ModelMapper().map(dto, Coleccion.class);
         Coleccion existente = service.listId(c.getIdColeccion());
         if (existente == null) {

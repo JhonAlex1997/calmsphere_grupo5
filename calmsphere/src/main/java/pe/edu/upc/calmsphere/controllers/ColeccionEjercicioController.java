@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.calmsphere.dtos.ColeccionEjercicioDTO;
 import pe.edu.upc.calmsphere.dtos.ColeccionEjercicioDTOInsert;
 import pe.edu.upc.calmsphere.dtos.ColeccionEjercicioDTOList;
 import pe.edu.upc.calmsphere.entities.Coleccion;
@@ -32,6 +33,17 @@ public class ColeccionEjercicioController {
 
     private ColeccionEjercicio toEntity(ColeccionEjercicioDTOInsert dto) {
         ColeccionEjercicio ce = new ColeccionEjercicio();
+        Coleccion c = new Coleccion();
+        c.setIdColeccion(dto.getIdColeccion());
+        Ejercicio e = new Ejercicio();
+        e.setId(dto.getIdEjercicio());
+        ce.setColeccion(c);
+        ce.setEjercicio(e);
+        return ce;
+    }
+
+    private ColeccionEjercicio toEntity(ColeccionEjercicioDTO dto) {
+        ColeccionEjercicio ce = new ColeccionEjercicio();
         ce.setIdColeccionEjercicio(dto.getIdColeccionEjercicio());
         Coleccion c = new Coleccion();
         c.setIdColeccion(dto.getIdColeccion());
@@ -41,6 +53,7 @@ public class ColeccionEjercicioController {
         ce.setEjercicio(e);
         return ce;
     }
+
 
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
     @GetMapping
@@ -77,7 +90,7 @@ public class ColeccionEjercicioController {
 
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
     @PutMapping
-    public ResponseEntity<String> actualizar(@RequestBody ColeccionEjercicioDTOInsert dto) {
+    public ResponseEntity<String> actualizar(@RequestBody ColeccionEjercicioDTO dto) {
         ColeccionEjercicio ce = toEntity(dto);
         ColeccionEjercicio existente = service.listId(ce.getIdColeccionEjercicio());
         if (existente == null) {

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.calmsphere.dtos.DisponibilidadDTO;
 import pe.edu.upc.calmsphere.dtos.DisponibilidadDTOInsert;
 import pe.edu.upc.calmsphere.dtos.DisponibilidadDTOList;
 import pe.edu.upc.calmsphere.entities.Disponibilidad;
@@ -55,7 +56,7 @@ public class DisponibilidadController {
 
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
-    public ResponseEntity<String> actualizar(@RequestBody DisponibilidadDTOInsert dto) {
+    public ResponseEntity<String> actualizar(@RequestBody DisponibilidadDTO dto) {
         Disponibilidad d = new ModelMapper().map(dto, Disponibilidad.class);
         Disponibilidad obj = dS.listId(d.getDisponibilidadId());
         if (obj == null) {

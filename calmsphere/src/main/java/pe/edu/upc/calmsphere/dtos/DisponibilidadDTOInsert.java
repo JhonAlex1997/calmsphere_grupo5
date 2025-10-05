@@ -3,18 +3,9 @@ package pe.edu.upc.calmsphere.dtos;
 import java.time.LocalTime;
 
 public class DisponibilidadDTOInsert {
-    private int disponibilidadId;
     private int diaSemana;
     private LocalTime horaInicio;
     private LocalTime horaFin;
-
-    public int getDisponibilidadId() {
-        return disponibilidadId;
-    }
-
-    public void setDisponibilidadId(int disponibilidadId) {
-        this.disponibilidadId = disponibilidadId;
-    }
 
     public int getDiaSemana() {
         return diaSemana;
@@ -40,3 +31,4 @@ public class DisponibilidadDTOInsert {
         this.horaFin = horaFin;
     }
 }
+

@@ -1,10 +1,20 @@
 package pe.edu.upc.calmsphere.dtos;
 
-public class EjercicioDTOInsert {
+public class EjercicioDTO {
+    private int id;
     private String nombre;
     private String autor;
     private int duracionSugerida;
     private String categoria;
+
+    // Getters y Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -38,4 +48,3 @@ public class EjercicioDTOInsert {
         this.categoria = categoria;
     }
 }
-

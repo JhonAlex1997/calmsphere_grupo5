@@ -1,8 +1,17 @@
 package pe.edu.upc.calmsphere.dtos;
 
-public class ColeccionDTOInsert {
+public class ColeccionDTO {
+    private int idColeccion;
     private String nombre;
     private String descripcion;
+
+    public int getIdColeccion() {
+        return idColeccion;
+    }
+
+    public void setIdColeccion(int idColeccion) {
+        this.idColeccion = idColeccion;
+    }
 
     public String getNombre() {
         return nombre;

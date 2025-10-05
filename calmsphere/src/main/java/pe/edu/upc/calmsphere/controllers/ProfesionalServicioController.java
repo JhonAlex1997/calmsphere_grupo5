@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.calmsphere.dtos.ProfesionalServicioDTOInsert;
 import pe.edu.upc.calmsphere.dtos.ProfesionalServicioDTOList;
+import pe.edu.upc.calmsphere.dtos.ProfesionalServicioDTOUpdate;
 import pe.edu.upc.calmsphere.entities.Disponibilidad;
 import pe.edu.upc.calmsphere.entities.ProfesionalServicio;
 import pe.edu.upc.calmsphere.entities.Usuario;
@@ -36,7 +37,6 @@ public class ProfesionalServicioController {
 
     private ProfesionalServicio toEntity(ProfesionalServicioDTOInsert dto) {
         ProfesionalServicio ps = new ProfesionalServicio();
-        ps.setIdProfesionalServicio(dto.getIdProfesionalServicio());
         ps.setNombre(dto.getNombre());
         ps.setDuracionMin(dto.getDuracionMin());
         ps.setPrecioBase(dto.getPrecioBase());
@@ -80,13 +80,27 @@ public class ProfesionalServicioController {
 
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
     @PutMapping
-    public ResponseEntity<String> actualizar(@RequestBody ProfesionalServicioDTOInsert dto) {
-        ProfesionalServicio ps = toEntity(dto);
+    public ResponseEntity<String> actualizar(@RequestBody ProfesionalServicioDTOUpdate dto) {
+        ProfesionalServicio ps = new ProfesionalServicio();
+        ps.setIdProfesionalServicio(dto.getIdProfesionalServicio());
+        ps.setNombre(dto.getNombre());
+        ps.setDuracionMin(dto.getDuracionMin());
+        ps.setPrecioBase(dto.getPrecioBase());
+
+        Disponibilidad d = new Disponibilidad();
+        d.setDisponibilidadId(dto.getIdDisponibilidad());
+        ps.setDisponibilidad(d);
+
+        Usuario u = new Usuario();
+        u.setIdUsuario(dto.getIdUsuario());
+        ps.setUsuario(u);
+
         ProfesionalServicio existente = service.listId(ps.getIdProfesionalServicio());
         if (existente == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("No se puede modificar. No existe con ID: " + ps.getIdProfesionalServicio());
         }
+
         service.update(ps);
         return ResponseEntity.ok("Profesional-servicio actualizado con ID: " + ps.getIdProfesionalServicio());
     }

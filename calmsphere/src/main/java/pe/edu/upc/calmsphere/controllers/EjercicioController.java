@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.calmsphere.dtos.EjercicioDTO;
 import pe.edu.upc.calmsphere.dtos.EjercicioDTOInsert;
 import pe.edu.upc.calmsphere.dtos.EjercicioDTOList;
 import pe.edu.upc.calmsphere.entities.Ejercicio;
@@ -55,7 +56,7 @@ public class EjercicioController {
 
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
     @PutMapping
-    public ResponseEntity<?> actualizar(@RequestBody EjercicioDTOInsert dto) {
+    public ResponseEntity<?> actualizar(@RequestBody EjercicioDTO dto) {
         Ejercicio ejercicio = new ModelMapper().map(dto, Ejercicio.class);
         Ejercicio existente = ejercicioService.listId(ejercicio.getId());
         if (existente == null) {
