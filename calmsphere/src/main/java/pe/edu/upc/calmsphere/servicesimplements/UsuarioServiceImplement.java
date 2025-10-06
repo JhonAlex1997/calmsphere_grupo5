@@ -42,4 +42,9 @@ public class UsuarioServiceImplement implements IUsuarioService {
     public List<Usuario> buscarNombre(String nombre) {
         return repository.buscar(nombre);
     }
+
+    @Override
+    public List<String[]> buscarEventoEstresPorUsuario() {
+        return repository.buscarEventoEstresPorUsuario();
+    }
 }
