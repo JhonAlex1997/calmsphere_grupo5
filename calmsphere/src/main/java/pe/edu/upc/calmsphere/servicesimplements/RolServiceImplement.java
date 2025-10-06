@@ -42,4 +42,9 @@ public class RolServiceImplement implements IRolService {
     public List<Rol> buscarTipoRol(String tipo) {
         return repository.buscarTipoRol(tipo);
     }
+
+    @Override
+    public List<String[]> listarRolesPorUsuario() {
+        return repository.listarRolesPorUsuario();
+    }
 }
