@@ -12,4 +12,7 @@ public interface IEjercicioService {
     void delete(int id);
 
     List<Ejercicio> findByCategoria(String categoria);
+    List<Ejercicio> findByNombreContiene(String nombre);
+    List<Ejercicio> buscarPorCategoriaYDuracionMinima(String categoria, int duracionMin);
+
 }

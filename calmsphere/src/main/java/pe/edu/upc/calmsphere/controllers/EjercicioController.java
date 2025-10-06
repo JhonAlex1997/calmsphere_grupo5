@@ -89,4 +89,31 @@ public class EjercicioController {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(listaDTO, HttpStatus.OK);
     }
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
+    @GetMapping("/BuscarPorNombre")
+    public ResponseEntity<?> buscarPorNombre(@RequestParam("n") String nombre) {
+        List<Ejercicio> lista = ejercicioService.findByNombreContiene(nombre);
+        if (lista.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron ejercicios con ese nombre");
+        }
+        List<EjercicioDTOList> listaDTO = lista.stream()
+                .map(e -> new ModelMapper().map(e, EjercicioDTOList.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(listaDTO);
+    }
+
+    @GetMapping("/FiltrarPorCategoriaYDuracion")
+    public ResponseEntity<?> filtrarPorCategoriaYDuracion(
+            @RequestParam("categoria") String categoria,
+            @RequestParam("duracionMin") int duracionMin) {
+
+        List<Ejercicio> lista = ejercicioService.buscarPorCategoriaYDuracionMinima(categoria, duracionMin);
+
+        if (lista.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se encontraron ejercicios para la categoría y duración indicadas");
+        }
+
+        return ResponseEntity.ok(lista);
+    }
 }

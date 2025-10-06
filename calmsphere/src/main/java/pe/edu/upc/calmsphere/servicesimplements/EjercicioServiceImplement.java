@@ -43,4 +43,14 @@ public class EjercicioServiceImplement implements IEjercicioService {
     public List<Ejercicio> findByCategoria(String categoria) {
         return eR.findByCategoria(categoria);
     }
+
+    @Override
+    public List<Ejercicio> findByNombreContiene(String nombre) {
+        return eR.buscarPorNombreContiene(nombre);
+    }
+
+    @Override
+    public List<Ejercicio> buscarPorCategoriaYDuracionMinima(String categoria, int duracionMin) {
+        return eR.buscarPorCategoriaYDuracionMinima(categoria, duracionMin);
+    }
 }
