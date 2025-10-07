@@ -9,4 +9,5 @@ public interface IUsuarioSuscripcionService {
     public void update(UsuarioSuscripcion u);
     public void delete(int id);
     public void insert(UsuarioSuscripcion u);
+
 }

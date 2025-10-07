@@ -7,7 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.calmsphere.dtos.ActividadDTO;
+import pe.edu.upc.calmsphere.dtos.ActividadDTOList;
+import pe.edu.upc.calmsphere.dtos.ColeccionDTOList;
 import pe.edu.upc.calmsphere.entities.Actividad;
+import pe.edu.upc.calmsphere.entities.Coleccion;
 import pe.edu.upc.calmsphere.servicesinterfaces.IActividadService;
 
 import java.util.List;
@@ -19,13 +22,15 @@ public class ActividadController {
     @Autowired
     private IActividadService iAS;
 
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
+    @GetMapping
     public ResponseEntity<?> listar() {
-        List<Actividad> list = iAS.list();
-        if (list.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron colecciones");
+        List<Actividad> lista = iAS.list();
+        if (lista.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron Actividades");
         }
-        List<ActividadDTO> listaDTO = list.stream()
-                .map(c -> new ModelMapper().map(c, ActividadDTO.class))
+        List<ActividadDTOList> listaDTO = lista.stream()
+                .map(c -> new ModelMapper().map(c, ActividadDTOList.class))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(listaDTO);
     }

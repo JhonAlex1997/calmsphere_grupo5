@@ -31,4 +31,5 @@ public class UsuarioSuscripcionServiceImplement implements IUsuarioSuscripcionSe
     public void insert(UsuarioSuscripcion u) {
         iUS.save(u);
     }
+
 }

@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.calmsphere.dtos.ActividadDTO;
 import pe.edu.upc.calmsphere.dtos.UsuarioSuscripcionDTO;
+import pe.edu.upc.calmsphere.entities.Actividad;
 import pe.edu.upc.calmsphere.entities.UsuarioSuscripcion;
 import pe.edu.upc.calmsphere.servicesinterfaces.IMetodoPagoService;
 import pe.edu.upc.calmsphere.servicesinterfaces.ISuscripcionService;
@@ -39,5 +41,8 @@ public class UsuarioSuscripcionController {
         }).collect(Collectors.toList());
         return ResponseEntity.ok(listDTO);
     }
+
+
+
 
 }
