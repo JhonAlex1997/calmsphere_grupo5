@@ -32,4 +32,9 @@ public class UsuarioSuscripcionServiceImplement implements IUsuarioSuscripcionSe
         iUS.save(u);
     }
 
+    @Override
+    public UsuarioSuscripcion listId(Integer id) {
+        return iUS.findById(id).orElse(new UsuarioSuscripcion());
+    }
+
 }

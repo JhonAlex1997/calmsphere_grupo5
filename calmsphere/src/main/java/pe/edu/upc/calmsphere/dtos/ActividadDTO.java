@@ -1,5 +1,6 @@
 package pe.edu.upc.calmsphere.dtos;
 
+
 import pe.edu.upc.calmsphere.entities.Ejercicio;
 import pe.edu.upc.calmsphere.entities.MetodoPago;
 import pe.edu.upc.calmsphere.entities.Usuario;
@@ -32,20 +33,20 @@ public class ActividadDTO {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public String getIntensidad() {
-        return intensidad;
-    }
-
-    public void setIntensidad(String intensidad) {
-        this.intensidad = intensidad;
-    }
-
     public double getDuracion() {
         return duracion;
     }
 
     public void setDuracion(double duracion) {
         this.duracion = duracion;
+    }
+
+    public String getIntensidad() {
+        return intensidad;
+    }
+
+    public void setIntensidad(String intensidad) {
+        this.intensidad = intensidad;
     }
 
     public String getObservacion() {

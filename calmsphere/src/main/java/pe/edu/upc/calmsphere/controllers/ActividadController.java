@@ -7,12 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.calmsphere.dtos.ActividadDTO;
+import pe.edu.upc.calmsphere.dtos.ActividadDTOInsert;
 import pe.edu.upc.calmsphere.dtos.ActividadDTOList;
-import pe.edu.upc.calmsphere.dtos.ColeccionDTOList;
 import pe.edu.upc.calmsphere.entities.Actividad;
-import pe.edu.upc.calmsphere.entities.Coleccion;
 import pe.edu.upc.calmsphere.servicesinterfaces.IActividadService;
+import pe.edu.upc.calmsphere.servicesinterfaces.IUsuarioService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,8 @@ import java.util.stream.Collectors;
 public class ActividadController {
     @Autowired
     private IActividadService iAS;
+    @Autowired
+    private IUsuarioService uservice;
 
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
     @GetMapping
@@ -34,51 +37,44 @@ public class ActividadController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(listaDTO);
     }
-
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
-    @GetMapping("/{id}")
-    public ResponseEntity<?> listarId(@PathVariable("id") int id) {
-        Actividad c = iAS.listId(id);
-        if (c == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No existe una colección con el ID: " + id);
-        }
-        ActividadDTO dto = new ModelMapper().map(c, ActividadDTO.class);
-        return ResponseEntity.ok(dto);
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
-    @PostMapping
-    public ResponseEntity<String> insertar(@RequestBody ActividadDTO dto) {
-        Actividad c = new ModelMapper().map(dto, Actividad.class);
-        iAS.insert(c);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Colección registrada con ID: " + c.getIdActividad());
-    }
-
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
     @PutMapping
-    public ResponseEntity<String> actualizar(@RequestBody ActividadDTO dto) {
-        Actividad c = new ModelMapper().map(dto, Actividad.class);
-        Actividad existente = iAS.listId(c.getIdActividad());
-        if (existente == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No se puede modificar. No existe una colección con el ID: " + c.getIdActividad());
-        }
-        iAS.update(c);
-        return ResponseEntity.ok("Colección actualizada con ID: " + c.getIdActividad());
+    public ResponseEntity<String> insertar(@RequestBody ActividadDTOInsert dto) {
+        Actividad a = new ModelMapper().map(dto, Actividad.class);
+        iAS.insert(a);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Colección registrada con ID: " + a.getIdActividad());
     }
-
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('PROFESIONAL') || hasAuthority('PACIENTE')")
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> listarId(@PathVariable("id") Integer id) {
+        Actividad e = iAS.listId(id);
+        if (e == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("No existe un estado de ánimo registrado con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        ActividadDTOList dto = m.map(e, ActividadDTOList.class);
+        return ResponseEntity.ok(dto);
+    }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") int id) {
         Actividad c = iAS.listId(id);
         if (c == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No existe una colección con el ID: " + id);
+                    .body("No existe una actividad con el ID: " + id);
         }
         iAS.delete(id);
-        return ResponseEntity.ok("Colección eliminada con ID: " + id);
+        return ResponseEntity.ok("Actividad eliminada con ID: " + id);
     }
 
+    @GetMapping("/busquedas")
+    public List<ActividadDTO> buscarfechainicio(LocalDate fechaInicio){
+        return iAS.findByFechaRegistro(fechaInicio).stream().map( y->{
+            ModelMapper m = new ModelMapper();
+            return m.map(y, ActividadDTO.class);
+        }).collect(Collectors.toList());
+    }
 }

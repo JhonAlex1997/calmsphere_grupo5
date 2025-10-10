@@ -12,9 +12,11 @@ public class UsuarioSuscripcion {
     @Column(name = "fechaInicio", nullable = false)
     private LocalDate fechaInicio;
     @Column(name = "fechaFin", nullable = false)
+
     private LocalDate fechaFin;
     @Column(name = "estado", nullable = false)
     private String estado;
+
     @ManyToOne
     @JoinColumn(name = "idSuscripcion")
     private Suscripcion idSuscripcion;

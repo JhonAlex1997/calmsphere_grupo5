@@ -6,9 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.calmsphere.dtos.ActividadDTO;
 import pe.edu.upc.calmsphere.dtos.UsuarioSuscripcionDTO;
-import pe.edu.upc.calmsphere.entities.Actividad;
 import pe.edu.upc.calmsphere.entities.UsuarioSuscripcion;
 import pe.edu.upc.calmsphere.servicesinterfaces.IMetodoPagoService;
 import pe.edu.upc.calmsphere.servicesinterfaces.ISuscripcionService;
@@ -41,8 +39,68 @@ public class UsuarioSuscripcionController {
         }).collect(Collectors.toList());
         return ResponseEntity.ok(listDTO);
     }
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
+        UsuarioSuscripcion u = uSS.listId(id);
+        if (u == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No existe un usuario con el ID: " + id);
+        }
+        uSS.delete(id);
+        return ResponseEntity.ok("El usuario con ID " + id + " fue eliminado correctamente.");
+    }
+    @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<String> insertar(@RequestBody UsuarioSuscripcionDTO dto) {
+        if (dto.getFechaInicio() == null || dto.getIdSuscripcion() == null || dto.getIdUsuario() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
+        int id = dto.getIdUsuario().getIdUsuario();
+        UsuarioSuscripcion us = uSS.listId(id);
+        if (us == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("No existe un usuario con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        UsuarioSuscripcion e = m.map(dto, UsuarioSuscripcion.class);
+        uSS.insert(e);
+        return ResponseEntity.ok("El estado de ánimo con ID " + e.getIdSuscripcion() + " fue registrado correctamente.");
+    }
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> listarId(@PathVariable("id") Integer id) {
+        UsuarioSuscripcion e = uSS.listId(id);
+        if (e == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("No existe un estado de ánimo registrado con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        UsuarioSuscripcionDTO dto = m.map(e, UsuarioSuscripcionDTO.class);
+        return ResponseEntity.ok(dto);
+    }
 
+    @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<String> modificar(@RequestBody UsuarioSuscripcionDTO dto) {
+        if (dto.getFechaInicio() == null || dto.getIdSuscripcion() == null || dto.getIdUsuario() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Por favor, complete todos los campos de forma válida.");
+        }
+        ModelMapper m = new ModelMapper();
+        UsuarioSuscripcion e = m.map(dto, UsuarioSuscripcion.class);
 
+        UsuarioSuscripcion existente = uSS.listId(e.getIdUsuarioSuscripcion());
+        if (existente == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se puede modificar. No existe un estado de ánimo registrado con el ID: " + e.getIdUsuarioSuscripcion());
+        }
 
+        uSS.update(e);
+        return ResponseEntity.ok("El estado de ánimo con ID " + e.getIdUsuarioSuscripcion() + " fue modificado correctamente.");
+    }
 }

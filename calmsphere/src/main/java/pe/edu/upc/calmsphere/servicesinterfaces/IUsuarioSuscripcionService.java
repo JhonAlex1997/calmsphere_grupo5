@@ -10,4 +10,5 @@ public interface IUsuarioSuscripcionService {
     public void delete(int id);
     public void insert(UsuarioSuscripcion u);
 
+    UsuarioSuscripcion listId(Integer id);
 }

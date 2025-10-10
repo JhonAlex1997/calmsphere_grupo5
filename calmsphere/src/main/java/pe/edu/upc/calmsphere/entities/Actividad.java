@@ -9,20 +9,27 @@ public class Actividad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idActividad;
+
     @Column(name = "fechaRegistro", nullable = false)
     private LocalDate fechaRegistro;
+
     @Column(name = "duracion", nullable = false)
     private double duracion;
+
     @Column(name = "intensidad", nullable = false)
     private String intensidad;
+
     @Column(name = "Observacion", nullable = false)
     private String Observacion;
+
     @ManyToOne
     @JoinColumn(name = "idUsuario")
     private Usuario idUsuario;
+
     @ManyToOne
     @JoinColumn(name = "idEjercicio")
     private Ejercicio idEjercicio;
+
     @ManyToOne
     @JoinColumn(name = "idMetodoPago")
     private MetodoPago idMetodoPago;

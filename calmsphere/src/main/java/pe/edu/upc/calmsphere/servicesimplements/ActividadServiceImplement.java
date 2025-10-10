@@ -6,33 +6,39 @@ import pe.edu.upc.calmsphere.entities.Actividad;
 import pe.edu.upc.calmsphere.repositories.IActividadRepository;
 import pe.edu.upc.calmsphere.servicesinterfaces.IActividadService;
 
+import java.time.LocalDate;
 import java.util.List;
 @Service
 public class ActividadServiceImplement implements IActividadService {
     @Autowired
-    private IActividadRepository iAR;
+    private IActividadRepository rA;
     @Override
     public List<Actividad> list() {
-        return iAR.findAll();
+        return rA.findAll();
     }
 
     @Override
     public void insert(Actividad a) {
-        iAR.save(a);
+        rA.save(a);
     }
 
     @Override
     public Actividad listId(int id) {
-        return iAR.findById(id).orElse(new Actividad());
+        return rA.findById(id).orElse(new Actividad());
     }
 
     @Override
     public void delete(int id) {
-        iAR.deleteById(id);
+        rA.deleteById(id);
     }
 
     @Override
     public void update(Actividad a) {
-        iAR.save(a);
+
+    }
+
+    @Override
+    public List<Actividad> findByFechaRegistro(LocalDate FechaInicio) {
+        return rA.findByFechaRegistro(FechaInicio);
     }
 }
