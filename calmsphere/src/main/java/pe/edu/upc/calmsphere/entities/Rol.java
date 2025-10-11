@@ -14,7 +14,6 @@ public class Rol {
     private String tipoRol;
     @ManyToOne
     @JoinColumn(name = "idUsuario", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Usuario idUsuario;
 
     public Rol() {

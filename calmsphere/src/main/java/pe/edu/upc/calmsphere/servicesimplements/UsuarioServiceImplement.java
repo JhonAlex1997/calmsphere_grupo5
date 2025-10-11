@@ -1,6 +1,7 @@
 package pe.edu.upc.calmsphere.servicesimplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.calmsphere.entities.Usuario;
 import pe.edu.upc.calmsphere.repositories.IUsuarioRepository;
@@ -12,6 +13,8 @@ import java.util.List;
 public class UsuarioServiceImplement implements IUsuarioService {
     @Autowired
     private IUsuarioRepository repository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<Usuario> list() {
@@ -20,6 +23,8 @@ public class UsuarioServiceImplement implements IUsuarioService {
 
     @Override
     public void insert(Usuario u) {
+        String contraseñaEncriptada = passwordEncoder.encode(u.getContraseña());
+        u.setContraseña(contraseñaEncriptada);
         repository.save(u);
     }
 

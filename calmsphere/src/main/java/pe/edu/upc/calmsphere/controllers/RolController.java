@@ -61,6 +61,12 @@ public class RolController {
                     .status(HttpStatus.NOT_FOUND)
                     .body("No existe un usuario con el ID: " + id);
         }
+        String tipo =  dto.getTipoRol();
+        if (!tipo.equals("ADMIN")  &&  !tipo.equals("PROFESIONAL") && !tipo.equals("PACIENTE")) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Por favor, ingrese un tipo de rol válido. (ADMIN, PROFESIONAL, PACIENTE)");
+        }
         ModelMapper m = new ModelMapper();
         Rol r = m.map(dto, Rol.class);
         service.insert(r);
@@ -88,11 +94,6 @@ public class RolController {
         if (r == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("No existe un rol con el ID: " + id);
-        }
-        Usuario u = r.getIdUsuario();
-        if(u != null){
-            u.getRoles().remove(r);
-            r.setIdUsuario(null);
         }
         service.delete(id);
         return ResponseEntity.ok("El rol con ID " + id + " fue eliminado correctamente.");
