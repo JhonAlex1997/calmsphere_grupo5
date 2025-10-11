@@ -1,6 +1,8 @@
 package pe.edu.upc.calmsphere.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "Rol")
@@ -12,6 +14,7 @@ public class Rol {
     private String tipoRol;
     @ManyToOne
     @JoinColumn(name = "idUsuario", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Usuario idUsuario;
 
     public Rol() {

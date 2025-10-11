@@ -89,6 +89,11 @@ public class RolController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("No existe un rol con el ID: " + id);
         }
+        Usuario u = r.getIdUsuario();
+        if(u != null){
+            u.getRoles().remove(r);
+            r.setIdUsuario(null);
+        }
         service.delete(id);
         return ResponseEntity.ok("El rol con ID " + id + " fue eliminado correctamente.");
     }
