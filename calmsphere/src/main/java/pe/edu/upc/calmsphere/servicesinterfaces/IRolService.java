@@ -11,4 +11,5 @@ public interface IRolService {
     public void delete(int id);
     public void update(Rol r);
     public List<Rol> buscarTipoRol(String tipo);
+    public List<String[]> listarRolesPorUsuario();
 }

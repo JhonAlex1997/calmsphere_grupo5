@@ -8,9 +8,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.calmsphere.dtos.UsuarioDTOInsert;
 import pe.edu.upc.calmsphere.dtos.UsuarioDTOList;
+import pe.edu.upc.calmsphere.dtos.UsuarioEventoEstresDTO;
 import pe.edu.upc.calmsphere.entities.Usuario;
 import pe.edu.upc.calmsphere.servicesinterfaces.IUsuarioService;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -115,5 +118,29 @@ public class UsuarioController {
         }).collect(Collectors.toList());
 
         return ResponseEntity.ok(listaDTO);
+    }
+
+    @GetMapping("/busquedasEventoEstres")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> buscarEventoEstres() {
+        List<String[]> usuarios = service.buscarEventoEstresPorUsuario();
+        List<UsuarioEventoEstresDTO> listarPorEventoEstres = new ArrayList<>();
+
+        if (usuarios.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se encontraron eventos de estrés registrados.");
+        }
+
+        for(String[] columna:usuarios){
+            UsuarioEventoEstresDTO dto = new UsuarioEventoEstresDTO();
+            dto.setNombre_Usuario(columna[0]);
+            dto.setId_EventoEstres(Integer.parseInt(columna[1]));
+            dto.setDescripcion(columna[2]);
+            dto.setFecha(LocalDate.parse(columna[3]));
+            dto.setNivelEstres(Integer.parseInt(columna[4]));
+            listarPorEventoEstres.add(dto);
+        }
+
+        return ResponseEntity.ok(listarPorEventoEstres);
     }
 }

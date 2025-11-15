@@ -12,7 +12,28 @@ public class SuscripcionServiceImplement implements ISuscripcionService {
     @Autowired
     private ISuscripcionRepository sS;
 
-    public List<Suscripcion> list(){
+    @Override
+    public List<Suscripcion> list() {
         return sS.findAll();
+    }
+
+    @Override
+    public void insert(Suscripcion s) {
+        sS.save(s);
+    }
+
+    @Override
+    public Suscripcion listId(int id) {
+        return sS.findById(id).orElse(new Suscripcion());
+    }
+
+    @Override
+    public void delete(int id) {
+        sS.deleteById(id);
+    }
+
+    @Override
+    public void update(Suscripcion s) {
+        sS.save(s);
     }
 }

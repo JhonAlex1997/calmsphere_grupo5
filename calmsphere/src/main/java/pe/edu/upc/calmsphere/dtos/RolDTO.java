@@ -1,7 +1,5 @@
 package pe.edu.upc.calmsphere.dtos;
 
-import pe.edu.upc.calmsphere.entities.Usuario;
-
 public class RolDTO {
     private int idRol;
     private String tipoRol;

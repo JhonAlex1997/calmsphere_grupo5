@@ -7,11 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.calmsphere.dtos.RolDTO;
+import pe.edu.upc.calmsphere.dtos.RolesPorUsuarioDTO;
+import pe.edu.upc.calmsphere.dtos.UsuarioEventoEstresDTO;
 import pe.edu.upc.calmsphere.entities.Rol;
 import pe.edu.upc.calmsphere.entities.Usuario;
 import pe.edu.upc.calmsphere.servicesinterfaces.IRolService;
 import pe.edu.upc.calmsphere.servicesinterfaces.IUsuarioService;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +32,7 @@ public class RolController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> listar() {
         List<Rol> roles = service.list();
+
 
         if (roles.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -55,6 +60,12 @@ public class RolController {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body("No existe un usuario con el ID: " + id);
+        }
+        String tipo =  dto.getTipoRol();
+        if (!tipo.equals("ADMIN")  &&  !tipo.equals("PROFESIONAL") && !tipo.equals("PACIENTE")) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Por favor, ingrese un tipo de rol válido. (ADMIN, PROFESIONAL, PACIENTE)");
         }
         ModelMapper m = new ModelMapper();
         Rol r = m.map(dto, Rol.class);
@@ -124,5 +135,26 @@ public class RolController {
         }).collect(Collectors.toList());
 
         return ResponseEntity.ok(listaDTO);
+    }
+
+    @GetMapping("/busquedasRolesPorNombre")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> listarRolesPorUsuario() {
+        List<String[]> roles = service.listarRolesPorUsuario();
+        List<RolesPorUsuarioDTO> listarRolesNroUsuario = new ArrayList<>();
+
+        if (roles.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se encontraron roles registrados.");
+        }
+
+        for(String[] columna:roles){
+            RolesPorUsuarioDTO dto = new RolesPorUsuarioDTO();
+            dto.setNombre(columna[0]);
+            dto.setNroRoles(Integer.parseInt(columna[1]));
+            listarRolesNroUsuario.add(dto);
+        }
+
+        return ResponseEntity.ok(listarRolesNroUsuario);
     }
 }

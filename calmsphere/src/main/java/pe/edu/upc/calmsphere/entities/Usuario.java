@@ -23,8 +23,7 @@ public class Usuario {
     private LocalDate fechaNacimiento;
     @Column(name = "fechaRegistro", nullable = false)
     private LocalDate fechaRegistro;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idUsuario")
+    @OneToMany(mappedBy = "idUsuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rol> roles;
 
     public Usuario() {}

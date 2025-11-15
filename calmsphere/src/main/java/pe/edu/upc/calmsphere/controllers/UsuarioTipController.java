@@ -108,7 +108,6 @@ public class UsuarioTipController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Por favor, complete todos los campos de forma válida.");
         }
-
         ModelMapper m = new ModelMapper();
         UsuarioTip u = m.map(dto, UsuarioTip.class);
 
